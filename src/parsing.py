@@ -3,7 +3,7 @@ The python file contains functions to parse the input data
 and convert it into a format suitable for the model.
 This parser currently supports PDFs and Word Documents.
 
-Author: Djena09
+Author: Dibyajyoti Jena
 '''
 from pypdf import PdfReader
 import re
