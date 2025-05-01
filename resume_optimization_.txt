@@ -1,0 +1,14 @@
+Use simple formatting.
+Avoid headers, footers, tables, templates, borders, lines, symbols (bullet points are ﬁne), shading, fancy fonts, font colors other than black, tables, columns and boxes.
+Write out months and years so it’s readable by ATS systems.
+Use/submit MS Word documents (not PDFs) since all ATS systems can scan/read them.
+Don’t wordstuﬀ by adding in hidden or white text to trick the system.
+Functional resumes without dates might not score as well with newer ATS systems.
+
+
+Extra Tips:
+-----------
+Know that there are other things an organization might be scanning for outside of the job description text, like brand competitors or universities or schools attended.
+Complete all ﬁelds in an online applications, even those that are not required. Recruiters may use those ﬁelds as ﬁlters and, if left blank, your application might not make it through the system.
+Many organizations have employee referral systems, which will fast-track your application through the ATS. If you have a contact at the organization to which you are applying, ask them to submit a referral on your behalf.
+ATS’ are starting to sync with a candidate’s social media presence, so build yours and make sure its professional.
