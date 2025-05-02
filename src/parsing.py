@@ -31,7 +31,6 @@ def number_of_pages(file_path):
 
 def extract_phoneNumber(file_path):
     try:
-        pdfReader = PdfReader(file_path)
         phonePattern = re.compile(r"\+?\d{0,2}[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}")
         phoneNumber = phonePattern.findall(extract_text_from_pdf(file_path))
     except Exception as e:
@@ -41,7 +40,6 @@ def extract_phoneNumber(file_path):
 
 def extract_email(file_path):
     try:
-        pdfReader = PdfReader(file_path)
         emailPattern = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
         emails = emailPattern.findall(extract_text_from_pdf(file_path))
     except Exception as e:
@@ -51,7 +49,6 @@ def extract_email(file_path):
 
 def extract_section_header(file_path):
     try:
-        pdfReader = PdfReader(file_path)
         headingPattern = re.compile(r"\b(Experience|Education|Skills|Projects|Certifications|Awards|Achievements)\b", re.IGNORECASE)
         headings = headingPattern.findall(extract_text_from_pdf(file_path))
     except Exception as e:
