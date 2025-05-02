@@ -47,8 +47,17 @@ def extract_email(file_path):
     except Exception as e:
         print(f"Error reading email: {e}")
         emails = []
-    
     return emails
+
+def extract_section_header(file_path):
+    try:
+        pdfReader = PdfReader(file_path)
+        headingPattern = re.compile(r"\b(Experience|Education|Skills|Projects|Certifications|Awards|Achievements)\b", re.IGNORECASE)
+        headings = headingPattern.findall(extract_text_from_pdf(file_path))
+    except Exception as e:
+        print(f"Error reading section headers: {e}")
+        headings = []
+    return headings
 
 
 if __name__ == "__main__":
@@ -56,6 +65,8 @@ if __name__ == "__main__":
     num_pages = number_of_pages(file_path)
     phone_number = extract_phoneNumber(file_path)
     email = extract_email(file_path)
+    section_header = extract_section_header(file_path)
+    print(f"Section headers found: {section_header}")
     print(f"Email found: {email}")
     print(f"Phone number found: {phone_number}")
     print(f"Number of pages in the resume: {num_pages}")
