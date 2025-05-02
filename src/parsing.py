@@ -39,11 +39,24 @@ def extract_phoneNumber(file_path):
         phoneNumber = []
     return phoneNumber
 
+def extract_email(file_path):
+    try:
+        pdfReader = PdfReader(file_path)
+        emailPattern = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
+        emails = emailPattern.findall(extract_text_from_pdf(file_path))
+    except Exception as e:
+        print(f"Error reading email: {e}")
+        emails = []
+    
+    return emails
+
 
 if __name__ == "__main__":
     file_path = "../test/DibyajyotiJena_Resume.pdf"
     num_pages = number_of_pages(file_path)
     phone_number = extract_phoneNumber(file_path)
+    email = extract_email(file_path)
+    print(f"Email found: {email}")
     print(f"Phone number found: {phone_number}")
     print(f"Number of pages in the resume: {num_pages}")
 
