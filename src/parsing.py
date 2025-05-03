@@ -72,6 +72,15 @@ def extract_links(file_path):
         links = []
     return links
 
+def extract_skills(file_path, skills_list):
+    try:
+        content = extract_text_from_pdf(file_path).lower()
+        skills_found = [skill for skill in skills_list if skill.lower(0) in content]
+    except Exception as e:
+        print(f"Error reading skills: {e}")
+        skills_found = []
+    return skills_found
+
 
 
 if __name__ == "__main__":
