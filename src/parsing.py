@@ -1,10 +1,12 @@
-'''
-The python file contains functions to parse the input data 
-and convert it into a format suitable for the model.
-This parser currently supports PDFs and Word Documents.
+"""
+This module provides functions to extract and process data from PDF files,
+specifically resumes. It includes functionality to extract text, count the
+number of pages, and find phone numbers, email addresses, and section headers
+within the document. The module is designed to ensure that resumes do not
+exceed one page and supports parsing of common resume sections.
 
 Author: Dibyajyoti Jena
-'''
+"""
 from pypdf import PdfReader
 import re
 
@@ -13,7 +15,11 @@ def extract_text_from_pdf(file_path):
     text = ""
 
     for page in pdfReader.pages:
-        text = page.extract_text() + "\n"
+        extract = page.extract_text()
+        if extract:
+            text += extract + "\n"
+        else:
+            print(f"Warning: No text found on page {page.number + 1}.")
 
     return text.strip()
 
@@ -56,6 +62,17 @@ def extract_section_header(file_path):
         headings = []
     return headings
 
+def extract_links(file_path):
+    try:
+        linkPattern = re.compile(r"(https?://)?(www\.)?(linkedin\.com|github\.com)/[a-zA-Z0-9_-]+")
+        links = linkPattern.findall(extract_text_from_pdf(file_path))
+        links = ["".join(link) for link in links]
+    except Exception as e:
+        print(f"Error reading links: {e}")
+        links = []
+    return links
+
+
 
 if __name__ == "__main__":
     file_path = "../test/DibyajyotiJena_Resume.pdf"
@@ -63,8 +80,11 @@ if __name__ == "__main__":
     phone_number = extract_phoneNumber(file_path)
     email = extract_email(file_path)
     section_header = extract_section_header(file_path)
+    links = extract_links(file_path)
+    print(f"Links found: {links}")
     print(f"Section headers found: {section_header}")
     print(f"Email found: {email}")
     print(f"Phone number found: {phone_number}")
     print(f"Number of pages in the resume: {num_pages}")
+    print("\n")
 
