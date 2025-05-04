@@ -81,6 +81,16 @@ def extract_skills(file_path, skills_list):
         skills_found = []
     return skills_found
 
+def extract_experience(file_path):
+    try:
+        experiencePattern = re.compile(r"(?i)(\b(?:intern|developer|engineer|manager|analyst|consultant)\b).*?(\b(?:at|for)\b.*?\b[A-Z][a-zA-Z]+\b)")
+        experience = experiencePattern.findall(extract_text_from_pdf(file_path))
+    except Exception as e:
+        print(f"Error reading experience: {e}")
+        experience = []
+    return experience
+
+
 
 
 if __name__ == "__main__":
@@ -90,6 +100,11 @@ if __name__ == "__main__":
     email = extract_email(file_path)
     section_header = extract_section_header(file_path)
     links = extract_links(file_path)
+    skills = ["Python", "Java", "C++", "JavaScript", "SQL"]
+    skills_found = extract_skills(file_path, skills)
+    experience = extract_experience(file_path)
+    print(f"Skills found: {skills_found}")
+    print(f"Experience found: {experience}")
     print(f"Links found: {links}")
     print(f"Section headers found: {section_header}")
     print(f"Email found: {email}")
