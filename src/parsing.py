@@ -75,7 +75,8 @@ def extract_links(file_path):
 def extract_skills(file_path, skills_list):
     try:
         content = extract_text_from_pdf(file_path).lower()
-        skills_found = [skill for skill in skills_list if skill.lower(0) in content]
+        #print(f"Content: {content}")
+        skills_found = [skill for skill in skills_list if skill.lower() in content]
     except Exception as e:
         print(f"Error reading skills: {e}")
         skills_found = []
@@ -90,7 +91,14 @@ def extract_experience(file_path):
         experience = []
     return experience
 
-
+def extract_education(file_path):
+    try:
+        educationPattern = re.compile(r"(?i)(\b(Bachelor|Master|PhD|Diploma|Degree)\b.*?\b(?:in|of)\b.*?\b[A-Z][a-zA-Z]+\b)")
+        education_details = educationPattern.findall(extract_text_from_pdf(file_path))
+    except Exception as e:
+        print(f"Error reading education: {e}")
+        education_details = []
+    return education_details
 
 
 if __name__ == "__main__":
@@ -100,9 +108,11 @@ if __name__ == "__main__":
     email = extract_email(file_path)
     section_header = extract_section_header(file_path)
     links = extract_links(file_path)
-    skills = ["Python", "Java", "C++", "JavaScript", "SQL"]
+    skills = ["Programming Language", "Technical Skills", "Python", "Golang"]
     skills_found = extract_skills(file_path, skills)
     experience = extract_experience(file_path)
+    education = extract_education(file_path)
+    print(f"Education details found: {education}")
     print(f"Skills found: {skills_found}")
     print(f"Experience found: {experience}")
     print(f"Links found: {links}")
