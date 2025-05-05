@@ -99,7 +99,10 @@ def extract_education(file_path):
         education_details = []
     return education_details
 
-
+'''
+This is a test function to check the functionality of the above functions.
+It is not part of the module and should be removed in production.
+'''
 if __name__ == "__main__":
     file_path = "../test/DibyajyotiJena_Resume.pdf"
     num_pages = number_of_pages(file_path)
