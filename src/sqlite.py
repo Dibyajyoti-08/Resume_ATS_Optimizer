@@ -8,9 +8,9 @@ def create_table():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS resumes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                phone number TEXT,
+                phone_number TEXT,
                 email TEXT,
-                secion headers TEXT,
+                section_headers TEXT,
                 links TEXT,
                 skills TEXT,
                 experience TEXT,
@@ -32,22 +32,22 @@ def insert_data(data):
 
         cursor.execute("""
             INSERT INTO resumes (phone_number, email, section_headers, links,
-            skils, experience, education, num_pages )
+            skills, experience, education, num_pages)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             data["phone_number"],
             data["email"],
-            ", ".join(data["section_header"]),
-            ", ".join(data["links"]),
-            ", ".join(data["skills"]),
-            ", ".join(data["experience"]),
-            ", ".join(data["education"]),
+            data["section_headers"],
+            data["links"],
+            data["skills"],
+            data["experience"],
+            data["education"],
             data["num_pages"]
         ))
 
         conn.commit()
         conn.close()
-        print("Data insterted successfully into the database")
+        print("Data inserted successfully into the database.")
     except Exception as e:
         print(f"Error inserting data into the database: {e}")
     

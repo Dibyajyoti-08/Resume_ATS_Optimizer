@@ -93,7 +93,7 @@ def extract_experience(file_path):
 
 def extract_education(file_path):
     try:
-        educationPattern = re.compile(r"(?i)(\b(Bachelor|Master|PhD|Diploma|Degree)\b.*?\b(?:in|of)\b.*?\b[A-Z][a-zA-Z]+\b)")
+        educationPattern = re.compile(r"(?i)\b(?:Bachelor|Master|PhD|Diploma|Degree)\b.*?\b(?:in|of)\b.*?\b[A-Z][a-zA-Z]+\b")
         education_details = educationPattern.findall(extract_text_from_pdf(file_path))
     except Exception as e:
         print(f"Error reading education: {e}")
@@ -128,17 +128,20 @@ if __name__ == "__main__":
     print(f"Number of pages in the resume: {num_pages}")
     print("\n")
     '''
-
     parsed_data = {
-        "phone_number": phone_number,
-        "email": email,
-        "section_headers": section_header,
-        "links": links,
-        "skills": skills_found,
-        "experience": experience,
-        "education": education,
-        "num_pages": num_pages
+        "phone_number": ", ".join(phone_number) if phone_number else "",
+        "email": ", ".join(email) if email else "",
+        "section_headers": ", ".join(section_header) if section_header else "",
+        "links": ", ".join(links) if links else "",
+        "skills": ", ".join(skills_found) if skills_found else "",
+        "experience": ", ".join(experience) if experience else "",
+        "education": ", ".join(education) if education else "",
+        "num_pages": num_pages if num_pages else 0
     }
+
+    # print(f"Parsed data: {parsed_data}")
+    # for key, value in parsed_data.items():
+    #     print(f"{key}: {value} (type: {type(value)})")
 
     insert_data(parsed_data)
 
