@@ -142,4 +142,4 @@ if __name__ == "__main__":
 
     insert_data(parsed_data)
 
-    print("Done...")
+    print("Done...Process...")
