@@ -9,6 +9,7 @@ Author: Dibyajyoti Jena
 """
 from pypdf import PdfReader
 import re
+from sqlite import create_table, insert_data
 
 def extract_text_from_pdf(file_path):
     pdfReader = PdfReader(file_path)
@@ -104,6 +105,8 @@ This is a test function to check the functionality of the above functions.
 It is not part of the module and should be removed in production.
 '''
 if __name__ == "__main__":
+    create_table()
+
     file_path = "../test/DibyajyotiJena_Resume.pdf"
     num_pages = number_of_pages(file_path)
     phone_number = extract_phoneNumber(file_path)
@@ -114,6 +117,7 @@ if __name__ == "__main__":
     skills_found = extract_skills(file_path, skills)
     experience = extract_experience(file_path)
     education = extract_education(file_path)
+    '''
     print(f"Education details found: {education}")
     print(f"Skills found: {skills_found}")
     print(f"Experience found: {experience}")
@@ -123,4 +127,19 @@ if __name__ == "__main__":
     print(f"Phone number found: {phone_number}")
     print(f"Number of pages in the resume: {num_pages}")
     print("\n")
+    '''
 
+    parsed_data = {
+        "phone_number": phone_number,
+        "email": email,
+        "section_headers": section_header,
+        "links": links,
+        "skills": skills_found,
+        "experience": experience,
+        "education": education,
+        "num_pages": num_pages
+    }
+
+    insert_data(parsed_data)
+
+    print("Done...")

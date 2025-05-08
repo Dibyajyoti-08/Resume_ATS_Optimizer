@@ -2,11 +2,11 @@ import sqlite3
 
 def create_table():
     try:
-        conn = sqlite3.connect('resume.db')
+        conn = sqlite3.connect('resumes.db')
         cursor = conn.cursor()
 
         cursor.execute("""
-            CREATE TABLE I NOT EXISTS resumes (
+            CREATE TABLE IF NOT EXISTS resumes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 phone number TEXT,
                 email TEXT,
@@ -25,6 +25,29 @@ def create_table():
     except Exception as e:
         print(f"Error creating database table: {e}")
 
-def insert_data():
-    
+def insert_data(data):
+    try:
+        conn = sqlite3.connect("resumes.db")
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO resumes (phone_number, email, section_headers, links,
+            skils, experience, education, num_pages )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            data["phone_number"],
+            data["email"],
+            ", ".join(data["section_header"]),
+            ", ".join(data["links"]),
+            ", ".join(data["skills"]),
+            ", ".join(data["experience"]),
+            ", ".join(data["education"]),
+            data["num_pages"]
+        ))
+
+        conn.commit()
+        conn.close()
+        print("Data insterted successfully into the database")
+    except Exception as e:
+        print(f"Error inserting data into the database: {e}")
     
